@@ -1,29 +1,62 @@
+const fakeData = [{
+    id: 'shoeCollec',
+    title: 'My Fancy Shoe Collection',
+    description: 'Something nice about shoes',
+    images: ['./images/5.jpg','./images/6.jpg','./images/7.jpg','./images/8.jpg','./images/9.jpg','./images/5.jpg','./images/5.jpg','./images/5.jpg']
+}]
+
+//sibling attribute = get siblings of each element in matched element set 
 $(document).on('click', '.trigger-images', function(){
-    var shouldRun = $(this).siblings('img').attr('data-state') === 'collection';
-    if(shouldRun) {
-        console.log('Am I happening?');
-        //Should be images from real collection later
-        var imageString = "images/box.jpg";
-        var imageRefs = $('.trigger-images');
-        for (var i = 0; i < imageRefs.length; i++) {
-            var element = imageRefs[i];
-            $(element).siblings('img').attr('src', imageString);
-            $(element).siblings('img').attr('data-state', 'individual');
-        }
-        //T0 be investigat4=ed
-        setTimeout(()=>{
-            toggleSlideStateOn();
-        }, 1000);
+    var runCollection = $(this).siblings('img').attr('data-state') === 'collection';
+    var runIndividual = $(this).siblings('img').attr('data-state') === 'individual';
+    var originalGrid = $('#grid').html();
+    var collectionId = $(this).siblings('img').attr('data-ref');
+    var currentCollection = fakeData.filter(function(collection){
+        return collection.id === collectionId;
+    }).pop();
+    if(runCollection) {
+        $('#grid').empty();
+        currentCollection.images.forEach(function(imageUrl){
+            $('#grid').append(
+                `
+                <li>
+                    <a href="#" class="toggle-slide" data-id="toggle-slide">
+                    <div class="hexagon">
+                    <img data-state="individual" src="${imageUrl}" data-ref="${collectionId}" data-url="${imageUrl}" alt="Lorem Ipsum"/>
+                    <div class="overlay trigger-images"></div>
+                    </div>  
+                    </a>
+                </li>
+                `
+            )
+        });
+
+        
+    }
+
+    if(runIndividual){
+        //Populate the 'slide' with title description and proper image
+        var url = $(this).siblings('img').attr('data-url');
+        var title = currentCollection.title;
+        var description = currentCollection.description;
+        $('.slide-over-title').text(title);
+        $('.slide-over-desc').text(description);
+        $('.slide-over-image').attr('src',url);
+
+        //Now we need to trigger programattically
+        console.log($(this).parent().parent())
+        var anchor = $(this).parent().parent();
+        anchor.attr('href', '#slide-over');
+        anchor.get(0).click();
     }
 });
 
-
+//
 function toggleSlideStateOn () {
     var anchors = $('.toggle-slide');
     for (let i = 0; i < anchors.length; i++) {
         const element = $(anchors[i]);
-        var newHref = element.attr('data-id');
-        element.attr('href', newHref);
+        element.attr('href', 'slide-over');
         
     }
 }

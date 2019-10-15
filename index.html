@@ -10,6 +10,7 @@
   <link rel="stylesheet" type="text/css" href="styles/styles.css">
 </head>
 <body>
+<!--Sidebar w user info -->
   <div id="sidebar">
     <div id="sidebar__portrait">
       <img src="images/Tom.jpg" alt="Tom Image"/>
@@ -30,14 +31,16 @@
       </div>
     </a>
   </div>
+  <!--Main grid of hexagons with display of all collections-->
   <div id="title">
     <h1>My Collections</h1>
+    <!--Collections is clickable to take back to main collection page-->
   </div>
   <ul id="grid" class="clr">
     <li>
       <a href="#" class="toggle-slide" data-id="#item1">
         <div class="hexagon">
-          <img data-state="collection" src="images/shoes1.jpg" data-original="images/shoes1.jpg" alt="Lorem Ipsum"/>
+          <img data-state="collection" src="images/shoes1.jpg" data-ref="shoeCollec" data-original="images/shoes1.jpg" alt="Lorem Ipsum"/>
           <div class="overlay trigger-images"></div>
         </div>  
       </a>
@@ -155,19 +158,19 @@
       </a>
     </li>
   </ul>
-  <div id="item1">
+  <div id="slide-over">
     <div class="left">
       <a href="#"><div class="button"><p>CLOSE &gt;&gt;</p></div></a>
-      <h2>My Shoe Collection</h2>
-      <p>
+      <h2 class="slide-over-title"></h2>
+      <p class='slide-over-desc'>
        Check out my collection of shoes
      </p>
    </div>
    <div class="right">
-    <img src="images/shoes1.jpg" alt="Lorem Ipsum"/>
+    <img class="slide-over-image" src="#" alt="Lorem Ipsum"/>
   </div>
 </div>
-<div id="item2">
+<!-- <div id="item2">
   <div class="left">
     <a href="#"><div class="button"><p>CLOSE &gt;&gt;</p></div></a>
     <h2>ITEM TITLE</h2>
@@ -334,7 +337,7 @@
  <div class="right">
   <img src="images/15.jpg" alt="Lorem Ipsum"/>
 </div>
-</div>
+</div> -->
 <div id="contact">
   <a href="#"><div class="button"><p>&lt;&lt; CLOSE</p></div></a>
   <form id="emailform">
