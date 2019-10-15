@@ -2,14 +2,17 @@ const fakeData = [{
     id: 'shoeCollec',
     title: 'My Fancy Shoe Collection',
     description: 'Something nice about shoes',
+    banner:'images/shoes1.jpg',
     images: ['./images/5.jpg','./images/6.jpg','./images/7.jpg','./images/8.jpg','./images/9.jpg','./images/5.jpg','./images/5.jpg','./images/5.jpg']
 }]
+
+generateCollections();
 
 //sibling attribute = get siblings of each element in matched element set 
 $(document).on('click', '.trigger-images', function(){
     var runCollection = $(this).siblings('img').attr('data-state') === 'collection';
     var runIndividual = $(this).siblings('img').attr('data-state') === 'individual';
-    var originalGrid = $('#grid').html();
+    var runResetCollections = $(this).attr('data-state') === 'reset';
     var collectionId = $(this).siblings('img').attr('data-ref');
     var currentCollection = fakeData.filter(function(collection){
         return collection.id === collectionId;
@@ -30,7 +33,7 @@ $(document).on('click', '.trigger-images', function(){
                 `
             )
         });
-
+        $('[data-state="reset"]').removeClass('hidden');
         
     }
 
@@ -48,6 +51,12 @@ $(document).on('click', '.trigger-images', function(){
         var anchor = $(this).parent().parent();
         anchor.attr('href', '#slide-over');
         anchor.get(0).click();
+    }
+
+    if(runResetCollections){
+        $('#grid').empty();
+        generateCollections();
+        $('[data-state="reset"]').addClass('hidden');
     }
 });
 
@@ -80,3 +89,19 @@ $('#title > h1').on('click', function(){
         }
     toggleSlideStateOff();
 }); 
+
+function generateCollections() {
+    fakeData.forEach(function(collection){
+        var html = `
+        <li>
+            <a href="#" class="toggle-slide">
+            <div class="hexagon">
+            <img data-state="collection" src="${collection.banner}" data-ref="${collection.id}" alt="Lorem Ipsum"/>
+            <div class="overlay trigger-images"></div>
+            </div>  
+            </a>
+        </li>
+        `;
+        $('#grid').append(html);
+    });
+}

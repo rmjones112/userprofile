@@ -486,6 +486,7 @@ label {
   font-size: 1em;
 }
 
+
 #title h1 {
   font-family: poppinssemibold;
   font-size: 36px;
@@ -498,6 +499,9 @@ label {
   font-family: poppinssemibold;
   color: #FFFFFF;
   font-size: 1em;
+}
+.hidden {
+  display: none;
 }
 
 /* Media Queries */
